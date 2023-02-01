@@ -21,7 +21,6 @@ class Login extends React.Component {
     e.preventDefault();
     if (this.isValidEmail(email) && password.length >= minLength) {
       dispatch(addEmail(email));
-      // navigate to /carteira
       history.push('/carteira');
     }
   };
