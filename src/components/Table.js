@@ -55,3 +55,5 @@ Table.propTypes = {
 }.isRequired;
 
 export default connect(mapStateToProps)(Table);
+
+// commit test
