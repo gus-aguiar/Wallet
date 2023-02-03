@@ -21,23 +21,32 @@ class Table extends Component {
           </tr>
         </thead>
         <tbody>
-          {expenses
-            .map(({ id, description, tag, method, value, currency, exchangeRates }) => (
-              <tr key={ id }>
+          {expenses.map(({ description, tag, method, value, currency, id }, index) => {
+            const exchangeRatesCurrency = expenses[id].exchangeRates[currency];
+            console.log(exchangeRatesCurrency);
+            const askValue = exchangeRatesCurrency.ask;
+            const convertedValue = value * askValue;
+            const formattedConvertedValue = Number(convertedValue).toFixed(2);
+            const currencyText = currency === 'USD'
+              ? 'Dólar Americano/Real Brasileiro'
+              : 'Euro/Real Brasileiro';
+            return (
+              <tr key={ index }>
                 <td>{description}</td>
                 <td>{tag}</td>
                 <td>{method}</td>
-                <td>{value}</td>
-                <td>{currency}</td>
-                <td>{exchangeRates[currency].ask}</td>
-                <td>{value * exchangeRates[currency].ask}</td>
-                <td>BRL</td>
+                <td>{Number(value).toFixed(2)}</td>
+                <td>{currencyText}</td>
+                <td>{Number(askValue).toFixed(2)}</td>
+                <td>{formattedConvertedValue}</td>
+                <td>Real</td>
                 <td>
                   <button>Editar</button>
                   <button>Excluir</button>
                 </td>
               </tr>
-            ))}
+            );
+          })}
         </tbody>
       </table>
     );
