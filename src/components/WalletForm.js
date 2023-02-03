@@ -6,15 +6,15 @@ import { fetchCurrencies, fetchAllInfo } from '../redux/actions/index';
 class WalletForm extends Component {
   INITIAL_STATE = {
     value: '',
-    descrição: '',
+    description: '',
   };
 
   state = {
     value: 0,
-    descrição: '',
+    description: '',
     currency: 'USD',
-    pagamento: 'dinheiro',
-    tag: 'alimentação',
+    method: 'Dinheiro',
+    tag: 'Alimentação',
   };
 
   componentDidMount() {
@@ -39,17 +39,17 @@ class WalletForm extends Component {
 
   setValue = ({ target }) => this.setState({ value: target.value });
 
-  setDescrição = ({ target }) => this.setState({ descrição: target.value });
+  setdescription = ({ target }) => this.setState({ description: target.value });
 
   setCurrency = ({ target }) => this.setState({ currency: target.value });
 
-  setPagamento = ({ target }) => this.setState({ pagamento: target.value });
+  setPagamento = ({ target }) => this.setState({ method: target.value });
 
   setTag = ({ target }) => this.setState({ tag: target.value });
 
   render() {
     const { currencies } = this.props;
-    const { value, descrição, currency, pagamento, tag } = this.state;
+    const { value, description, currency, method, tag } = this.state;
     return (
       <div>
         <form>
@@ -65,15 +65,15 @@ class WalletForm extends Component {
               value={ value }
             />
           </label>
-          <label htmlFor="descrição">
-            descrição:
+          <label htmlFor="description">
+            description:
             {' '}
             <input
-              name="descrição"
-              id="descrição"
+              name="description"
+              id="description"
               data-testid="description-input"
-              onChange={ this.setDescrição }
-              value={ descrição }
+              onChange={ this.setdescription }
+              value={ description }
             />
           </label>
           <select
@@ -95,18 +95,18 @@ class WalletForm extends Component {
           <select
             data-testid="method-input"
             onChange={ this.setPagamento }
-            value={ pagamento }
+            value={ method }
           >
-            <option value="dinheiro">Dinheiro</option>
-            <option value="crédito">Cartão de crédito</option>
-            <option value="débito">Cartão de débito</option>
+            <option value="Dinheiro">Dinheiro</option>
+            <option value="Cartão de crédito">Cartão de crédito</option>
+            <option value="Cartão de débito">Cartão de débito</option>
           </select>
           <select data-testid="tag-input" value={ tag } onChange={ this.setTag }>
-            <option value="alimentação">Alimentação</option>
-            <option value="lazer">Lazer</option>
-            <option value="trabalho">Trabalho</option>
-            <option value="transporte">Transporte</option>
-            <option value="saude">Saúde</option>
+            <option value="Alimentação">Alimentação</option>
+            <option value="Lazer">Lazer</option>
+            <option value="Trabalho">Trabalho</option>
+            <option value="Transporte">Transporte</option>
+            <option value="Saúde">Saúde</option>
           </select>
           <button type="button" onClick={ this.handleClick }>Adicionar despesa</button>
         </form>
