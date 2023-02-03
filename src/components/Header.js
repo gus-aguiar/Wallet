@@ -4,15 +4,38 @@ import { connect } from 'react-redux';
 
 const mapStateToProps = (state) => ({
   email: state.user.email,
+  expenses: state.wallet.expenses,
 });
 
 class Header extends Component {
+  state = {
+    total: 0,
+  };
+
+  componentDidUpdate(prevProps) {
+    const { expenses } = this.props;
+    if (prevProps.expenses !== expenses) {
+      const total = expenses.reduce(
+        (acc, { value, exchangeRates, currency }) => {
+          const askValue = exchangeRates[currency].ask;
+          return acc + value * askValue;
+        },
+        0,
+      );
+
+      this.setState({
+        total: Number(total).toFixed(2),
+      });
+    }
+  }
+
   render() {
     const { email } = this.props;
+    const { total } = this.state;
     return (
       <div>
+        <p data-testid="total-field">{total}</p>
         <p data-testid="email-field">{`email: ${email}`}</p>
-        <p data-testid="total-field">0</p>
         <p data-testid="header-currency-field">BRL</p>
       </div>
     );
@@ -21,8 +44,9 @@ class Header extends Component {
 
 Header.propTypes = {
   email: PropTypes.string.isRequired,
-};
-// Acesso ao estado global
+  expenses: PropTypes.shape({
+    reduce: PropTypes.func,
+  }),
+}.isRequired;
 
-// No export
 export default connect(mapStateToProps)(Header);
