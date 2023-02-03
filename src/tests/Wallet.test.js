@@ -2,7 +2,7 @@ import React from 'react';
 import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import App from '../App';
-import { renderWithRouterAndRedux, renderWithRedux } from './helpers/renderWith';
+import { renderWithRouterAndRedux } from './helpers/renderWith';
 import { initialState } from './helpers/initialState';
 import mockData from './helpers/mockData';
 
@@ -24,13 +24,10 @@ describe('Testes na tela de Carteira', () => {
     expect(global.fetch).toHaveBeenCalledTimes(1);
     expect(global.fetch).toBeCalledWith('https://economia.awesomeapi.com.br/json/all');
   });
-  test('Verifica o comportamento do usuário dentro do ', async () => {
+  test('Verifica o comportamento do usuário dentro da rota da carteira ', async () => {
     renderWithRouterAndRedux(<App />, { initialEntries: ['/carteira'], initialState });
     const valueInput = screen.getByTestId('value-input');
     const descriptionInput = screen.getByTestId('description-input');
-    const currencyInput = screen.getByTestId('currency-input');
-    const methodInput = screen.getByTestId('method-input');
-    const tagInput = screen.getByTestId('tag-input');
     const goButton = screen.getByRole('button', {
       name: /adicionar despesa/i,
     });
@@ -38,9 +35,12 @@ describe('Testes na tela de Carteira', () => {
     userEvent.type(descriptionInput, '10 dólares');
     userEvent.click(goButton);
     expect(global.fetch).toHaveBeenCalledTimes(2);
-    // const editButton = screen.getByRole('button', {
-    //   name: /editar/i,
-    // });
-    // expect(editButton).toBeInTheDocument();
+    expect(valueInput.value).toBe('');
   });
+
+  // test('Verifica o comportamento do usuário dentro da rota da carteira ', async () => {
+  //   renderWithRouterAndRedux(<App />, { initialEntries: ['/carteira'], initialStateTwo });
+  //   const deleteButton = screen.getByTestId('delete-btn');
+  //   expect(deleteButton).toBeInTheDocument();
+  // });
 });
