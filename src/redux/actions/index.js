@@ -3,6 +3,7 @@ export const ADD_EMAIL = 'ADD_EMAIL';
 export const FETCH_CURRENCIES_SUCCESS = 'FETCH_CURRENCIES_SUCCESS';
 export const FETCH_ALL_INFO = 'FETCH_ALL_INFO';
 export const ADD_EXPENSE = 'ADD_EXPENSE';
+export const DELETE_EXPENSE = 'DELETE_EXPENSE';
 
 // ACTIONS CREATORS
 export const addEmail = (email) => ({
@@ -23,6 +24,11 @@ export const fetchAllInfoSucess = (allInfo) => ({
 export const addExpense = (expenses) => ({
   type: ADD_EXPENSE,
   expenses,
+});
+
+export const deleteExpense = (id) => ({
+  type: DELETE_EXPENSE,
+  id,
 });
 
 export const fetchCurrencies = () => async (dispatch) => {
