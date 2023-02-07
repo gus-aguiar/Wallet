@@ -4,6 +4,8 @@ export const FETCH_CURRENCIES_SUCCESS = 'FETCH_CURRENCIES_SUCCESS';
 export const FETCH_ALL_INFO = 'FETCH_ALL_INFO';
 export const ADD_EXPENSE = 'ADD_EXPENSE';
 export const DELETE_EXPENSE = 'DELETE_EXPENSE';
+export const START_EDIT_EXPENSE = 'START_EDIT_EXPENSE';
+export const END_EDIT_EXPENSE = 'EDIT_EXPENSE';
 
 // ACTIONS CREATORS
 export const addEmail = (email) => ({
@@ -30,6 +32,18 @@ export const deleteExpense = (id) => ({
   type: DELETE_EXPENSE,
   id,
 });
+
+export const startEditExpense = (id) => ({
+  type: START_EDIT_EXPENSE,
+  id,
+});
+export const endEditExpense = (newState, idToEdit) => ({
+  type: END_EDIT_EXPENSE,
+  newState,
+  idToEdit,
+});
+
+// ACTIONS FETCHES
 
 export const fetchCurrencies = () => async (dispatch) => {
   const response = await fetch('https://economia.awesomeapi.com.br/json/all');

@@ -1,5 +1,9 @@
 // Esse reducer será responsável por tratar o todas as informações relacionadas as despesas
-import { FETCH_CURRENCIES_SUCCESS, ADD_EXPENSE, DELETE_EXPENSE } from '../actions/index';
+import { FETCH_CURRENCIES_SUCCESS,
+  ADD_EXPENSE,
+  DELETE_EXPENSE,
+  START_EDIT_EXPENSE,
+  END_EDIT_EXPENSE } from '../actions/index';
 
 const INITIAL_STATE = {
   currencies: [], // array de string
@@ -26,6 +30,24 @@ const wallet = (state = INITIAL_STATE, action) => {
       expenses: state.expenses.filter(({ id }) => id !== action.id),
 
     };
+  case START_EDIT_EXPENSE:
+    return { ...state,
+      editor: true,
+      idToEdit: action.id,
+
+    };
+  case END_EDIT_EXPENSE: {
+    const updatedExpenses = [...state.expenses];
+    updatedExpenses[action.idToEdit] = { ...action.newState,
+      id: action.idToEdit,
+      exchangeRates: state.expenses[action.idToEdit].exchangeRates };
+    return { ...state,
+      editor: false,
+      idToEdit: 0,
+      expenses: updatedExpenses,
+
+    };
+  }
   default:
     return state;
   }
