@@ -1,10 +1,12 @@
 import React from 'react';
 import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { act } from 'react-dom/test-utils';
 import App from '../App';
 import { renderWithRouterAndRedux } from './helpers/renderWith';
-import { initialState } from './helpers/initialState';
+import { initialState, initialStateTwo } from './helpers/initialState';
 import mockData from './helpers/mockData';
+import { addExpense } from '../redux/actions';
 
 beforeEach(() => {
   jest.spyOn(global, 'fetch').mockResolvedValue(
@@ -25,7 +27,7 @@ describe('Testes na tela de Carteira', () => {
     expect(global.fetch).toBeCalledWith('https://economia.awesomeapi.com.br/json/all');
   });
   test('Verifica o comportamento do usuário dentro da rota da carteira ', async () => {
-    renderWithRouterAndRedux(<App />, { initialEntries: ['/carteira'], initialState });
+    const { store } = renderWithRouterAndRedux(<App />, { initialEntries: ['/carteira'], initialState });
     const valueInput = screen.getByTestId('value-input');
     const descriptionInput = screen.getByTestId('description-input');
     const goButton = screen.getByRole('button', {
@@ -36,11 +38,39 @@ describe('Testes na tela de Carteira', () => {
     userEvent.click(goButton);
     expect(global.fetch).toHaveBeenCalledTimes(2);
     expect(valueInput.value).toBe('');
+    act(() => {
+      store.dispatch(addExpense(initialStateTwo));
+    });
+
+    const deleteButton = screen.getByTestId('delete-btn');
+    expect(deleteButton).toBeInTheDocument();
+    const dinheiroMethod = screen.getByRole('cell', {
+      name: /dinheiro/i,
+    });
+    expect(dinheiroMethod).toBeInTheDocument();
+    userEvent.click(deleteButton);
+    expect(dinheiroMethod).not.toBeInTheDocument();
   });
 
-  // test('Verifica o comportamento do usuário dentro da rota da carteira ', async () => {
-  //   renderWithRouterAndRedux(<App />, { initialEntries: ['/carteira'], initialStateTwo });
-  //   const deleteButton = screen.getByTestId('delete-btn');
-  //   expect(deleteButton).toBeInTheDocument();
-  // });
+  test('Verifica o componente de edit e depois as opções dos dropdowns ', async () => {
+    const { store } = renderWithRouterAndRedux(<App />, { initialEntries: ['/carteira'], initialStateTwo });
+    act(() => {
+      store.dispatch(addExpense(initialStateTwo));
+    });
+    const editButton = screen.getByTestId('edit-btn');
+    expect(editButton).toBeInTheDocument();
+    userEvent.click(editButton);
+    const editExpense = screen.getByRole('button', {
+      name: /editar despesa/i,
+    });
+    expect(editExpense).toBeInTheDocument();
+    userEvent.click(editExpense);
+    const descriptionInput = screen.getByTestId('description-input');
+    userEvent.type(descriptionInput, '10 dólares');
+    const valueInput = screen.getByTestId('value-input');
+    userEvent.type(valueInput, '10');
+    userEvent.click(editExpense);
+    const headerValue = screen.getByTestId('total-field');
+    expect(headerValue).not.toBe(0);
+  });
 });

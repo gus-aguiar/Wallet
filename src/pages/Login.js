@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import React from 'react';
 import { addEmail } from '../redux/actions';
+import styles from './Login.module.css';
 
 class Login extends React.Component {
   state = {
@@ -34,28 +35,39 @@ class Login extends React.Component {
     const minLength = 6;
 
     return (
-      <form onSubmit={ this.handleSubmit }>
-        <input
-          type="email"
-          value={ email }
-          onChange={ this.setEmail }
-          data-testid="email-input"
-          placeholder="Email"
-        />
-        <input
-          type="password"
-          value={ password }
-          onChange={ this.setPassword }
-          data-testid="password-input"
-          placeholder="Password"
-        />
-        <button
-          type="submit"
-          disabled={ !this.isValidEmail(email) || password.length < minLength }
-        >
-          Entrar
-        </button>
-      </form>
+      <div className={ styles.bigDiv }>
+        <form onSubmit={ this.handleSubmit } className={ styles.form }>
+          <p htmlFor="username" className={ styles.label }>
+            username
+          </p>
+          <input
+            type="email"
+            value={ email }
+            onChange={ this.setEmail }
+            data-testid="email-input"
+            placeholder="Email"
+            id="username"
+            className={ styles.input }
+          />
+          <p htmlFor="username" className={ styles.label }>
+            password
+          </p>
+          <input
+            type="password"
+            value={ password }
+            onChange={ this.setPassword }
+            data-testid="password-input"
+            placeholder="Password"
+            className={ styles.input }
+          />
+          <button
+            type="submit"
+            disabled={ !this.isValidEmail(email) || password.length < minLength }
+          >
+            Entrar
+          </button>
+        </form>
+      </div>
     );
   }
 }
