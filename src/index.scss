@@ -1,3 +1,7 @@
+@use './styles/variables.scss' as *;
+@use './styles/mixins.scss' as *;
+
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -5,11 +9,11 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: rgb(72, 72, 72);
+  background-color: darken($bg_clr_login, 5%);
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 100%;
+  height: 100vh;
   width: 100%;
 }
 

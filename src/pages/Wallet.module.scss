@@ -1,0 +1,8 @@
+@use '../styles/variables' as *;
+@use '../styles/mixins' as *;
+
+.divHeader{
+    background-color: aliceblue;
+    width: 1120px;
+    height: 168px;
+}
