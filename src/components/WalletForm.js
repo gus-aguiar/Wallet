@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchCurrencies, fetchAllInfo, endEditExpense } from '../redux/actions/index';
+import styles from './WalletForm.module.scss';
 
 class WalletForm extends Component {
   INITIAL_STATE = {
@@ -62,7 +63,7 @@ class WalletForm extends Component {
     const { currencies, editor } = this.props;
     const { value, description, currency, method, tag } = this.state;
     return (
-      <div>
+      <div className={ styles.formConteiner }>
         <form>
           <label htmlFor="despesa">
             despesa:
@@ -119,12 +120,16 @@ class WalletForm extends Component {
             <option value="Transporte">Transporte</option>
             <option value="Saúde">Saúde</option>
           </select>
-          <button
-            type="button"
-            onClick={ editor ? this.handleEdit : this.handleClick }
-          >
-            {editor ? 'Editar despesa' : 'Adicionar despesa'}
-          </button>
+          <br />
+          <div className={ styles.buttonConteiner }>
+            <button
+              type="button"
+              onClick={ editor ? this.handleEdit : this.handleClick }
+              id={ styles.addExpense }
+            >
+              {editor ? 'Editar despesa' : 'Adicionar despesa'}
+            </button>
+          </div>
         </form>
       </div>
     );

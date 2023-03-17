@@ -2,7 +2,31 @@
 @use '../styles/mixins' as *;
 
 .divHeader{
-    background-color: aliceblue;
-    width: 1120px;
-    height: 168px;
+    position: absolute;
+width: 1037px;
+height: 482px;
+left: 121px;
+top: 5px;
+
+background: #da4545;
+box-shadow: -4px 9px 13px rgba(5, 18, 54, 0.4);
+border-radius: 10px;
+display: flex;
+align-content: flex-end;
+z-index: -1;
+}
+
+.divForm{
+    position: absolute;
+width: 1037px;
+height: 134px;
+left: 121px;
+top: 156px;
+
+background: rgba(225, 229, 235, 0.49);
+border-radius: 0px;
+display: flex;
+align-items: flex-end;
+justify-content: center;
+z-index: 1;
 }

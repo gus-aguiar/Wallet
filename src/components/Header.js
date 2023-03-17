@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import styles from './Header.module.scss';
 
 const mapStateToProps = (state) => ({
   email: state.user.email,
@@ -33,10 +34,13 @@ class Header extends Component {
     const { email } = this.props;
     const { total } = this.state;
     return (
-      <div>
-        <p data-testid="total-field">{total}</p>
+      <div className={ styles.contentHolderHeader }>
         <p data-testid="email-field">{`email: ${email}`}</p>
-        <p data-testid="header-currency-field">BRL</p>
+        <div className={ styles.totalBlock }>
+          <p>Total de despesas: </p>
+          <p data-testid="total-field">{total}</p>
+          <p data-testid="header-currency-field">BRL</p>
+        </div>
       </div>
     );
   }

@@ -1,0 +1,25 @@
+@use '../styles/variables' as *;
+@use '../styles/mixins' as *;
+
+.tableHolder{
+position: absolute;
+width: 1155px;
+height: 464px;
+left: 63px;
+top: 156px;
+
+background: #003BE5;
+box-shadow: -4px 9px 13px rgba(3, 107, 82, 0.3);
+border-radius: 10px;
+z-index: 0;
+display: flex;
+align-items: flex-end;
+text-align: center;
+
+}
+#tableCell{
+    background-color: azure;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+}

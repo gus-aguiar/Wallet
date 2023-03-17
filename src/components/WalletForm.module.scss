@@ -1,0 +1,31 @@
+@use '../styles/variables' as *;
+@use '../styles/mixins' as *;
+
+.formConteiner {
+    background-color: aqua;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 120px;
+}
+
+#addExpense{
+    box-sizing: border-box;
+
+
+width: 330px;
+height: 40px;
+left: 475px;
+top: 318px;
+
+background: #2FC18C;
+border: 1px solid #2FC18C;
+border-radius: 5px;
+border-top: 30px;
+}
+.buttonConteiner{
+    display: flex;
+    justify-content: center;
+    height: 20px;
+    
+}
